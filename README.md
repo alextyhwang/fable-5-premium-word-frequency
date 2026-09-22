@@ -13,6 +13,10 @@ The Hugging Face card lists 12,730 rows because the dataset ships two formats of
 
 Tokenization: lowercase alphabetic tokens, literal `\\n`/`\\t`/`\\r` stripped, dotted file extensions counted separately.
 
+## Live report
+
+https://fable-5-premium-word-frequency.vercel.app
+
 ## Run the report
 
 ```bash
@@ -31,4 +35,18 @@ pip install -r requirements.txt
 python3 scripts/word_frequency.py \\
   --data-dir /tmp/fable5/openai_chat \\
   --out src/data/word-frequency.json
+```
+
+Download the unique split first:
+
+```bash
+python3 - <<'PY'
+from huggingface_hub import snapshot_download
+snapshot_download(
+    repo_id="saidutta69/fable-5-premium",
+    repo_type="dataset",
+    allow_patterns="openai_chat/*.parquet",
+    local_dir="/tmp/fable5",
+)
+PY
 ```
